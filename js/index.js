@@ -20,7 +20,6 @@ function returnData() {
         .then(data => {
             return data;
         })
-
 }
 
 function getData() {
@@ -147,4 +146,4 @@ buttonRegister.addEventListener('click', () => {
     }, 3000)
 })
 
-getData();
+// getData();
