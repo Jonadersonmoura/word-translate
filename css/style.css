@@ -15,14 +15,14 @@
     right: 10px;
 }
 
-.fixed-bottom-right img {
+.fixed-bottom-right svg {
     width: 40px;
     height: 40px;
     color: #008000;
     cursor: pointer
 }
 
-.fixed-top-right img {
+.fixed-top-right svg {
     width: 30px;
     height: 30px;
     color: #ff0000;
