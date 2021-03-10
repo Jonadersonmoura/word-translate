@@ -1,0 +1,54 @@
+{
+  "words": [
+    {
+      "id": 1,
+      "word": "Love",
+      "translate": "Love"
+    },
+    {
+      "id": 2,
+      "word": "Life",
+      "translate": "Life"
+    },
+    {
+      "id": 3,
+      "word": "Purple",
+      "translate": "Love"
+    },
+    {
+      "id": 4,
+      "word": "Like",
+      "translate": "Life"
+    },
+    {
+      "id": 5,
+      "word": "Amor",
+      "translate": "Love"
+    },
+    {
+      "id": 6,
+      "word": "Vida",
+      "translate": "Life"
+    },
+    {
+      "id": 7,
+      "word": "Amor",
+      "translate": "Love"
+    },
+    {
+      "id": 8,
+      "word": "Vida",
+      "translate": "Life"
+    },
+    {
+      "id": 9,
+      "word": "Amor",
+      "translate": "Love"
+    },
+    {
+      "id": 10,
+      "word": "Vida",
+      "translate": "Life"
+    }
+  ]
+}
