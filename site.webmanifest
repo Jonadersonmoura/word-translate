@@ -1,7 +1,7 @@
 {
     "name": "Word Translate",
     "short_name": "WT",
-    "start_url": "/index.html",
+    "start_url": "/",
     "icons": [
         {
             "src": "/android-chrome-192x192.png",
@@ -16,5 +16,6 @@
     ],
     "theme_color": "#ffffff",
     "background_color": "#ffffff",
-    "display": "standalone"
+    "display": "standalone",
+    "orientation": "portrait"
 }
