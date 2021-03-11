@@ -1,12 +1,17 @@
+.container {
+    height: 80vh;
+}
+
 .icon-title {
     color: #ffffff;
     margin-right: 10px;    
 }
 
 .fixed-bottom-right {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
 }
 
 .fixed-top-right {
@@ -32,10 +37,28 @@
 .modal-custom {
     position: fixed;    
     height: 100vh;
-    top: -100vh;
+    top: -150vh;
     width: 100%;
     background: rgba(0, 0, 0, 50%);
     transition: 0.7s;
+}
+
+.icon-edit path {
+    fill: green
+}
+
+.accordion-body {
+    display: inline-flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.buttons {
+    display: flex;
+    align-items: start;
+    justify-content: end;
+    flex-direction: row;
+    column-gap: 10px;
 }
 
 .opened {
@@ -45,7 +68,7 @@
 .modal-main {
     background: #ffffff;
     padding: 15px;
-    height: 80vh;
+    height: 85vh;
     width: 85%;
     margin: 10vh auto;
     position: relative;

@@ -52,7 +52,7 @@
 	</header>
 	<div class="container">
 		<form class="row mt-3">
-			<div class="col-12">
+			<div class="col-10">
 				<label for="searchWord"
 					   class="form-label">Search Word</label>
 				<input type="email"
@@ -60,15 +60,16 @@
 					   id="searchWord"
 					   aria-describedby="searchWord">
 			</div>
+			<div class="col-2">
+				<div id="openModal"
+					 class="fixed-bottom-right">
+					<i data-feather="plus-circle"></i>
+				</div>
+			</div>
 		</form>
 
 		<div class="accordion accordion-flush mt-3"
 			 id="accordionWords">
-		</div>
-
-		<div id="openModal"
-			 class="fixed-bottom-right">
-			<i data-feather="plus-circle"></i>
 		</div>
 	</div>
 
@@ -104,9 +105,9 @@
 						  class="form-control"
 						  id="inputNotes"
 						  placeholder="Notes"
-						  rows="5"></textarea>
+						  rows="3"></textarea>
 			</div>
-			<div class="mb-3 float-end">
+			<div class="float-end">
 				<button id="submitRegister"
 						type="button"
 						class="btn btn-primary mb-3"
@@ -115,7 +116,22 @@
 		</div>
 	</div>
 
-
+	<div id="toastElement"
+		 class="toast align-items-center"
+		 role="alert"
+		 aria-live="assertive"
+		 aria-atomic="true"
+		 style="margin: 0 auto;">
+		<div class="d-flex">
+			<div class="toast-body">
+				Hello, world! This is a toast message.
+			</div>
+			<button type="button"
+					class="btn-close me-2 m-auto"
+					data-bs-dismiss="toast"
+					aria-label="Close"></button>
+		</div>
+	</div>
 
 	<script src="js/feather.min.js"></script>
 	<script>
@@ -134,6 +150,7 @@
 		}
 		registerServiceWorker()
 	</script>
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js"
 			integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi"
 			crossorigin="anonymous"></script>
