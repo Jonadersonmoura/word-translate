@@ -14,19 +14,30 @@ const buttonRegister = document.querySelector("#submitRegister")
 
 const alert = document.querySelector("#alert")
 
-let data;
+let dataFilter;
 let id;
 let edit = false;
 const URL = 'http://localhost:3000/word'
 
+const store = firebase.firestore();
+const db = firebase.database().ref('/words');
+
 function getData() {
-    axios.get(URL)
-        .then(response => {
-            const data = response.data;
-            this.data = data;
-            mountDataHtml(data)
-            return data;
-        })
+    db.on('value', snapshot => {
+        let data = []
+        snapshot.forEach(element => {
+            const id = element.key;
+            const docData = element.val()
+            data.push({
+                _id: id,
+                word: docData.word,
+                translate: docData.translate,
+                notes: docData.notes
+            })
+        });
+        dataFilter = data;
+        mountDataHtml(data)
+    })
 }
 
 function mountDataHtml(data) {
@@ -54,9 +65,13 @@ function mountDataHtml(data) {
                         <strong>Translate: </strong>${item.translate}<br>
                         <strong>Notes: </strong>${item.notes}                     
                     </div>
-                    <div class="buttons">                  
-                        <img class="icon-edit" src="./img/icons/edit.svg" data-id=${item._id} onclick="editWord(this)" alt="">
-                        <img class="icon-remove" src="./img/icons/trash-2.svg" data-id=${item._id} onclick="removeWord(this)" alt="">                        
+                    <div class="buttons">  
+                        <a data-id-edit="${item._id}">               
+                            <img class="icon-edit" src="./img/icons/edit.svg" alt="editar">
+                        </a> 
+                        <a data-id-remove="${item._id}">    
+                            <img class="icon-remove" src="./img/icons/trash-2.svg"  alt="salvar">                        
+                        </a>
                     </div>              
                 </div>
             </div>  
@@ -65,13 +80,17 @@ function mountDataHtml(data) {
         divAccordionItem.classList.add('accordion-item')
         divAccordionItem.innerHTML = html;
         divAccordionWords.appendChild(divAccordionItem)
+        document.querySelector(`[data-id-edit="${item._id}"]`)
+            .addEventListener('click', () => editWord(item._id))
+        document.querySelector(`[data-id-remove="${item._id}"]`)
+            .addEventListener('click', () => removeWord(item._id))
     })
 }
 
-function editWord(element) {
+function editWord(idElement) {
     edit = true;
-    id = element.getAttribute('data-id')
-    const currentEdit = this.data.filter(item => {
+    id = idElement;
+    const currentEdit = dataFilter.filter(item => {
         return item._id === id;
     })[0]
     inputWord.value = currentEdit.word
@@ -80,19 +99,8 @@ function editWord(element) {
     openCloseModal()
 }
 
-function removeWord(element) {
-    const id = element.getAttribute('data-id')
-    axios.delete(`${URL}/${id}`)
-        .then(data => {
-            getData()
-            option = {
-                animation: true,
-                delay: 2000
-            }
-            const htmlToast = document.querySelector('#toastElement')
-            const elementToast = new bootstrap.Toast(htmlToast, option)
-            elementToast.show()
-        })
+function removeWord(idElement) {
+    db.child(idElement).remove()
 }
 
 function openCloseModal() {
@@ -197,33 +205,44 @@ inputNotes.addEventListener('keyup', () => {
 
 inputSearch.addEventListener('keyup', (event) => {
     let value = event.target.value;
-    const filter = filterData(this.data, value);
+    const filter = filterData(dataFilter, value);
     mountDataHtml(filter)
 })
 
 buttonRegister.addEventListener('click', () => {
-    const form = {
+
+    const values = {
         word: inputWord.value,
         translate: inputTranslate.value,
         notes: inputNotes.value
     }
 
     if (edit) {
-        axios.put(`${URL}/${id}`, form).then(data => {
-            alertCreate('SUCCESS')
-            formClear();
-            getData();
-        }).catch(error => {
-            alertCreate('ERROR')
-        })
-    } else {
-        axios.post(URL, form).then(data => {
-            alertCreate('SUCCESS')
-            formClear();
-            getData();
-        }).catch(error => {
-            alertCreate('ERROR')
-        })
+        console.log(id)
+        db.child(id)
+            .update(values
+                , error => {
+                    if (error) {
+                        alertCreate('ERROR')
+                    } else {
+                        alertCreate('SUCCESS')
+                        formClear();
+                    }
+                }
+            );
+    }
+    else {
+        db.child(uuidv4())
+            .set(values
+                , error => {
+                    if (error) {
+                        alertCreate('ERROR')
+                    } else {
+                        alertCreate('SUCCESS')
+                        formClear();
+                    }
+                }
+            );
     }
 })
 
