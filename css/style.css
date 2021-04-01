@@ -1,5 +1,9 @@
+header {
+    height: 10vh;
+}
+
 .container {
-    height: 80vh;
+    height: 70vh
 }
 
 .icon-title {
@@ -45,6 +49,11 @@
 
 .icon-edit path {
     fill: green
+}
+
+.accordion {
+    height: 100% !important;
+    overflow-y: auto;
 }
 
 .accordion-body {
